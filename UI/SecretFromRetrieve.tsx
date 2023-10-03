@@ -1,17 +1,19 @@
-import React from "react";
-import { Box, TextField, Switch, FormControlLabel, Button } from "@mui/material";
+import React from "react"
+import { Box, TextField, Switch, FormControlLabel, Button } from "@mui/material"
 
 type SecretFormProps = {
-    hash: string;
-    isXmlResponse: boolean;
-    handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleToggleChange: () => void;
-    handleSubmit: (e: React.FormEvent) => void;
-};
+    hash: string
+    warningMessage: string
+    isXmlResponse: boolean
+    handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    handleToggleChange: () => void
+    handleSubmit: (e: React.FormEvent) => void
+}
 
-const SecretForm: React.FC<SecretFormProps> = ({ hash, isXmlResponse, handleInputChange, handleToggleChange, handleSubmit }) => {
+const SecretFormRetrieve: React.FC<SecretFormProps> = ({ hash, warningMessage, isXmlResponse, handleInputChange, handleToggleChange, handleSubmit }) => {
     return (
-        <Box 
+      <div>
+          <Box 
             component="form"
             sx={{
                 "& .MuiTextField-root": { m: 1, width: "25ch" },
@@ -27,7 +29,7 @@ const SecretForm: React.FC<SecretFormProps> = ({ hash, isXmlResponse, handleInpu
                 label="Hash"
                 name="hash_promp"
                 value={hash}
-                onChange={handleInputChange}
+                onChange={handleInputChange} 
             />
             <FormControlLabel
                 control={<Switch checked={isXmlResponse} onChange={handleToggleChange} name="responseFormat" />}
@@ -37,7 +39,13 @@ const SecretForm: React.FC<SecretFormProps> = ({ hash, isXmlResponse, handleInpu
                 Submit
             </Button>
         </Box>
-    );
-};
+        {warningMessage && (
+            <div style={{marginTop:'10px', color:'red',  textAlign:'center' }}>
+                {warningMessage}
+            </div>
+        )}
+      </div>
+    )
+}
 
-export default SecretForm;
+export default SecretFormRetrieve

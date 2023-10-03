@@ -9,7 +9,8 @@ type Secret = {
 export const useCreateSecrets = () => {
 
     const [secret, setSecret] = useState<Secret>({})
-      
+    const [warning, setWarning] = useState<boolean>(false)
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setSecret((prevSecret) => ({ ...prevSecret, [name]: value }))
@@ -19,7 +20,8 @@ export const useCreateSecrets = () => {
         e.preventDefault()
         
         if (!secret.secret_text) {
-            console.error('Secret text is required')
+            console.error('Secret text is required!')
+            setWarning(true)
             return
           }
 
@@ -34,7 +36,6 @@ export const useCreateSecrets = () => {
         
         try {
             const response = await fetch(url, options)
-      
             if (!response.ok) {
               console.error('Error submitting secret', response)
               return
@@ -49,6 +50,7 @@ export const useCreateSecrets = () => {
 
     return {
         secret,
+        warning,
         handleInputChange,
         handleSubmit,
       }

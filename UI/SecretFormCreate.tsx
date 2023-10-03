@@ -9,11 +9,12 @@ type Secret = {
 
 type SecretFormProps = {
     secret: Secret,
+    warning: boolean,
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleSubmit: (e: React.FormEvent) => void;
 };
 
-const SecretForm : React.FC<SecretFormProps> = ({ secret, handleInputChange, handleSubmit }) => {
+const SecretFormCreate : React.FC<SecretFormProps> = ({ secret, warning, handleInputChange, handleSubmit }) => {
      
     return (
         <div>
@@ -55,8 +56,13 @@ const SecretForm : React.FC<SecretFormProps> = ({ secret, handleInputChange, han
                     Submit
                 </Button>
             </Box>
+            {warning && (
+                <div style={{marginTop:'10px', color:'red',  textAlign:'center' }}>
+                    Secret text is required!
+                </div>
+            )}
         </div>
     )
 }
 
-export default SecretForm
+export default SecretFormCreate
