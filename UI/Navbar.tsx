@@ -15,13 +15,13 @@ const Navbar = () => {
         <Link href="/" passHref>
           <Button
             color="inherit"
-            disabled={router.pathname === '/'}
+      
           >
-            Home
+           Secret Server
           </Button>
         </Link>
         <Typography variant="h6" style={{ flexGrow: 1 }}>
-          Secret Server
+       
         </Typography>
         <Link href="/secret_form" passHref>
           <Button color="inherit" disabled={router.pathname === '/secret_form'}>

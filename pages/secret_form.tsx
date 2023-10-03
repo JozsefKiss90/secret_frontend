@@ -7,15 +7,17 @@ export default function SecretFrom(){
   const {
     secret,
     warning,
+    feedback,
     handleInputChange,
     handleSubmit,
-  } = useCreateSecrets();
+  } = useCreateSecrets(); 
      
     return (
         <div>
             <SecretFormCreate 
                 secret={secret}
                 warning={warning}
+                feedback={feedback}
                 handleInputChange={handleInputChange} 
                 handleSubmit={handleSubmit}
             />

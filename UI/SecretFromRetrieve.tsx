@@ -5,12 +5,13 @@ type SecretFormProps = {
     hash: string
     warningMessage: string
     isXmlResponse: boolean
+    isLoading:boolean
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
     handleToggleChange: () => void
     handleSubmit: (e: React.FormEvent) => void
 }
 
-const SecretFormRetrieve: React.FC<SecretFormProps> = ({ hash, warningMessage, isXmlResponse, handleInputChange, handleToggleChange, handleSubmit }) => {
+const SecretFormRetrieve: React.FC<SecretFormProps> = ({ hash, warningMessage, isXmlResponse, isLoading, handleInputChange, handleToggleChange, handleSubmit }) => {
     return (
       <div>
           <Box 
@@ -20,6 +21,7 @@ const SecretFormRetrieve: React.FC<SecretFormProps> = ({ hash, warningMessage, i
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                marginTop: '20px'
             }}
             noValidate
             autoComplete="off"
@@ -44,6 +46,11 @@ const SecretFormRetrieve: React.FC<SecretFormProps> = ({ hash, warningMessage, i
                 {warningMessage}
             </div>
         )}
+        {isLoading && 
+            <h3 style={{textAlign:'center' }}>
+                Loading...
+            </h3>
+        }
       </div>
     )
 }

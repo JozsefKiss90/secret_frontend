@@ -11,6 +11,10 @@ export const useRetrieveSecrets = () => {
   const [secret, setSecret] = useState<Secret>()
   const [isXmlResponse, setIsXmlResponse] = useState<boolean>(true)
   const [warningMessage, setWarningMessage] = useState<string>('')
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL
+  const localUrl = process.env.NEXT_PUBLIC_URL
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setHash(e.target.value)
@@ -39,30 +43,40 @@ export const useRetrieveSecrets = () => {
     e.preventDefault()
 
   if (!hash) {
-      console.error('Input required')
+      setWarningMessage('Input required!')
       return  
   }
+   
+    const url = process.env.NODE_ENV === "production" ? `${apiUrl}${hash}/` : `${localUrl}${hash}/`
+    setIsLoading(true)
+    try { 
+      const response = await fetch(url, {
+          headers: {
+              'Accept': isXmlResponse ? 'application/xml' : 'application/json', 
+          },
+      })
+      const contentType = response.headers.get('content-type')
 
-    const url = `https://secret-server-api-a8ae5f120a2a.herokuapp.com/api/secret/${hash}/`
-    //const url = `http://127.0.0.1:8000/api/secret/${hash}/`
-  try { 
-    const response = await fetch(url, {
-        headers: {
-            'Accept': isXmlResponse ? 'application/xml' : 'application/json', 
-        },
-    })
-    if (!response.ok) {
-      const errorData = await response.json()
-      console.error('Error submitting secret', response)
-      setWarningMessage(getUserFriendlyMessage(response.status, errorData.detail))
-      return
-    }
-    
-    const contentType = response.headers.get('content-type')
-
+      if (!response.ok) {
+          let errorDetail = 'An unexpected error occurred. Please try again.'
+          if (contentType && contentType.includes('application/json')) {
+              const errorData = await response.json()
+              errorDetail = errorData.detail
+          } else if (contentType && contentType.includes('application/xml')) {
+              const text = await response.text()
+              const parser = new DOMParser()
+              const xmlDoc = parser.parseFromString(text, "text/xml")
+              errorDetail = xmlDoc.getElementsByTagName("detail")[0]?.textContent || errorDetail
+          }
+          setWarningMessage(getUserFriendlyMessage(response.status, errorDetail))
+          setSecret({})
+          return
+      }
+  
       if (contentType && contentType.includes('application/json')) {
           const data = await response.json()
           setSecret(data)
+          setWarningMessage('')
       } else if (contentType && contentType.includes('application/xml')) {
           const text = await response.text()
           const parser = new DOMParser()
@@ -77,20 +91,23 @@ export const useRetrieveSecrets = () => {
               remaining_views,
               expires_at
           })   
-      } 
-      else {
+          setWarningMessage('')
+      } else {
           console.error('Unexpected content type', contentType)
       }
     } catch (error) {
-      console.error('Failed to submit secret', error)
+        console.error('Failed to submit secret', error)
+    }  finally {
+      setIsLoading(false) 
     }
-}
+  }
 
   return {
     hash,
     secret,
     warningMessage,
     isXmlResponse,
+    isLoading,
     handleInputChange,
     handleToggleChange,
     handleSubmit,

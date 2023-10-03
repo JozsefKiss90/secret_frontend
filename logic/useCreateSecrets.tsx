@@ -10,6 +10,10 @@ export const useCreateSecrets = () => {
 
     const [secret, setSecret] = useState<Secret>({})
     const [warning, setWarning] = useState<boolean>(false)
+    const [feedback, setFeedback] = useState<string>() 
+
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL
+    const localUrl = process.env.NEXT_PUBLIC_URL
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -22,10 +26,12 @@ export const useCreateSecrets = () => {
         if (!secret.secret_text) {
             console.error('Secret text is required!')
             setWarning(true)
+            setFeedback('')
             return
           }
 
-        const url = 'http://127.0.0.1:8000/api/secret/'
+        const url = process.env.NODE_ENV === "production" ? apiUrl : localUrl
+
         const options = {
             method: 'POST',
             headers: {
@@ -40,7 +46,7 @@ export const useCreateSecrets = () => {
               console.error('Error submitting secret', response)
               return
             }
-      
+            setFeedback('Success!')
             const data = await response.json()
             console.log('Secret submitted', data)
           } catch (error) {
@@ -51,6 +57,7 @@ export const useCreateSecrets = () => {
     return {
         secret,
         warning,
+        feedback,
         handleInputChange,
         handleSubmit,
       }

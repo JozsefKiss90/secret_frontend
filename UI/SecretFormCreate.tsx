@@ -10,11 +10,12 @@ type Secret = {
 type SecretFormProps = {
     secret: Secret,
     warning: boolean,
+    feedback: string,
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleSubmit: (e: React.FormEvent) => void;
 };
 
-const SecretFormCreate : React.FC<SecretFormProps> = ({ secret, warning, handleInputChange, handleSubmit }) => {
+const SecretFormCreate : React.FC<SecretFormProps> = ({ secret, warning,feedback, handleInputChange, handleSubmit }) => {
      
     return (
         <div>
@@ -26,6 +27,7 @@ const SecretFormCreate : React.FC<SecretFormProps> = ({ secret, warning, handleI
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                marginTop: '20px'
                 }}
                 noValidate
                 autoComplete="off"
@@ -59,6 +61,11 @@ const SecretFormCreate : React.FC<SecretFormProps> = ({ secret, warning, handleI
             {warning && (
                 <div style={{marginTop:'10px', color:'red',  textAlign:'center' }}>
                     Secret text is required!
+                </div>
+            )}
+            {feedback && (
+                <div style={{marginTop:'10px', color:'green',  textAlign:'center' }}>
+                    {feedback}
                 </div>
             )}
         </div>

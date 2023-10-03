@@ -10,11 +10,12 @@ export default function SecretRetrieve() {
         secret,
         warningMessage,
         isXmlResponse,
+        isLoading,
         handleInputChange,
         handleToggleChange,
         handleSubmit,
       } = useRetrieveSecrets();
-
+      //const secretExists= Object.keys(secret).length!==0 
       return (
         <div>
             <Navbar/> 
@@ -22,6 +23,7 @@ export default function SecretRetrieve() {
                 hash={hash} 
                 warningMessage={warningMessage}
                 isXmlResponse={isXmlResponse} 
+                isLoading={isLoading}
                 handleInputChange={handleInputChange} 
                 handleToggleChange={handleToggleChange} 
                 handleSubmit={handleSubmit}
