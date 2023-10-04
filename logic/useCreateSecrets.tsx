@@ -1,16 +1,12 @@
 import { useState } from "react"
-
-type Secret = {
-    secret_text?: string
-    expireAfterViews?: number
-    expireAfter?: number
-  } | undefined
+import { PostSecret }  from '../types/types'
 
 export const useCreateSecrets = () => {
 
-    const [secret, setSecret] = useState<Secret>({})
+    const [secret, setSecret] = useState<PostSecret>({})
     const [warning, setWarning] = useState<boolean>(false)
     const [feedback, setFeedback] = useState<string>() 
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL
     const localUrl = process.env.NEXT_PUBLIC_URL
@@ -24,14 +20,13 @@ export const useCreateSecrets = () => {
         e.preventDefault()
         
         if (!secret.secret_text) {
-            console.error('Secret text is required!')
             setWarning(true)
             setFeedback('')
             return
           }
 
         const url = process.env.NODE_ENV === "production" ? apiUrl : localUrl
-
+        setIsLoading(true)    
         const options = {
             method: 'POST',
             headers: {
@@ -51,6 +46,8 @@ export const useCreateSecrets = () => {
             console.log('Secret submitted', data)
           } catch (error) {
             console.error('Failed to submit secret', error)
+          } finally {
+            setIsLoading(false) 
           }
     }    
 
@@ -58,6 +55,7 @@ export const useCreateSecrets = () => {
         secret,
         warning,
         feedback,
+        isLoading,
         handleInputChange,
         handleSubmit,
       }

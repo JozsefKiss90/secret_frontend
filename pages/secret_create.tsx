@@ -8,6 +8,7 @@ export default function SecretFrom(){
     secret,
     warning,
     feedback,
+    isLoading,
     handleInputChange,
     handleSubmit,
   } = useCreateSecrets(); 
@@ -18,6 +19,7 @@ export default function SecretFrom(){
                 secret={secret}
                 warning={warning}
                 feedback={feedback}
+                isLoading={isLoading}
                 handleInputChange={handleInputChange} 
                 handleSubmit={handleSubmit}
             />

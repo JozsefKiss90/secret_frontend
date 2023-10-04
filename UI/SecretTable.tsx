@@ -48,7 +48,7 @@ const SecretTable: React.FC<SecretTableProps> = ({ secret }) => {
                     </TableRow>
                     <TableRow>
                         <TableCell component="th" scope="row">
-                            Expires In
+                            Expires At
                         </TableCell>
                         <TableCell>
                             {secret.expires_at && secret.secret_text

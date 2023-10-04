@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import SecretFormRetrive from "../UI/SecretFromRetrieve";
 import SecretTable from "../UI/SecretTable"; 
 import { useRetrieveSecrets } from "../logic/useRetrieveSecrets";

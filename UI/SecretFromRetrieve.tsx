@@ -1,17 +1,8 @@
 import React from "react"
 import { Box, TextField, Switch, FormControlLabel, Button } from "@mui/material"
+import { SecretFormPropsRetrieve }  from '../types/types'
 
-type SecretFormProps = {
-    hash: string
-    warningMessage: string
-    isXmlResponse: boolean
-    isLoading:boolean
-    handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    handleToggleChange: () => void
-    handleSubmit: (e: React.FormEvent) => void
-}
-
-const SecretFormRetrieve: React.FC<SecretFormProps> = ({ hash, warningMessage, isXmlResponse, isLoading, handleInputChange, handleToggleChange, handleSubmit }) => {
+const SecretFormRetrieve: React.FC<SecretFormPropsRetrieve> = ({ hash, warningMessage, isXmlResponse, isLoading, handleInputChange, handleToggleChange, handleSubmit }) => {
     return (
       <div>
           <Box 

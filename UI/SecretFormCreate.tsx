@@ -1,26 +1,13 @@
 import { Box, TextField, Button } from "@mui/material"
 import Navbar from "./Navbar"
+import { SecretFormPropsCreate }  from '../types/types'
 
-type Secret = {
-    secret_text?: string
-    expireAfterViews?: number
-    expireAfter?: number
-  } | undefined
-
-type SecretFormProps = {
-    secret: Secret,
-    warning: boolean,
-    feedback: string,
-    handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleSubmit: (e: React.FormEvent) => void;
-};
-
-const SecretFormCreate : React.FC<SecretFormProps> = ({ secret, warning,feedback, handleInputChange, handleSubmit }) => {
+const SecretFormCreate : React.FC<SecretFormPropsCreate> = ({ secret, warning, isLoading, feedback, handleInputChange, handleSubmit }) => {
      
     return (
         <div>
             <Navbar/>
-            <Box
+            <Box 
                 component="form"
                 sx={{
                 '& .MuiTextField-root': { m: 1, width: '25ch' },
@@ -64,11 +51,16 @@ const SecretFormCreate : React.FC<SecretFormProps> = ({ secret, warning,feedback
                 </div>
             )}
             {feedback && (
-                <div style={{marginTop:'10px', color:'green',  textAlign:'center' }}>
+                <h3 style={{marginTop:'10px', color:'green',  textAlign:'center' }}>
                     {feedback}
-                </div>
+                </h3>
             )}
-        </div>
+            {isLoading && 
+            <h3 style={{textAlign:'center' }}>
+                Loading...
+            </h3>
+        }
+        </div> 
     )
 }
 

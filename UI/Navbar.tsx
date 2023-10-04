@@ -15,7 +15,9 @@ const Navbar = () => {
         <Link href="/" passHref>
           <Button
             color="inherit"
-      
+            sx={
+              {fontSize:'1.2rem'}
+            }
           >
            Secret Server
           </Button>
@@ -23,8 +25,10 @@ const Navbar = () => {
         <Typography variant="h6" style={{ flexGrow: 1 }}>
        
         </Typography>
-        <Link href="/secret_form" passHref>
-          <Button color="inherit" disabled={router.pathname === '/secret_form'}>
+        <Link href="/secret_create" passHref>
+          <Button color="inherit" 
+                  disabled={router.pathname === '/secret_create'}
+            >
             Create Secret
           </Button>
         </Link>

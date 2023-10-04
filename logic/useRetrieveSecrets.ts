@@ -1,15 +1,10 @@
 import { useState } from "react"
-
-export type Secret = {
-  secret_text?: string
-  remaining_views?: number
-  expires_at?: number
-} | undefined 
+import { GetSecret }  from '../types/types'
 
 export const useRetrieveSecrets = () => {
   const [hash, setHash] = useState<string>('')
-  const [secret, setSecret] = useState<Secret>()
-  const [isXmlResponse, setIsXmlResponse] = useState<boolean>(true)
+  const [secret, setSecret] = useState<GetSecret>()
+  const [isXmlResponse, setIsXmlResponse] = useState<boolean>(false)
   const [warningMessage, setWarningMessage] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -83,9 +78,10 @@ export const useRetrieveSecrets = () => {
           const xmlDoc = parser.parseFromString(text, "text/xml")
           
           const secret_text = xmlDoc.getElementsByTagName("secret_text")[0]?.textContent || ''
-          const expires_at = parseInt(xmlDoc.getElementsByTagName("expires_at")[0]?.textContent) || null
+          const expires_at = xmlDoc.getElementsByTagName("expires_at")[0]?.innerHTML || null
           const remaining_views = parseInt(xmlDoc.getElementsByTagName("remaining_views")[0]?.textContent || '0', 10)
-
+          console.log(parseInt(xmlDoc.getElementsByTagName("expires_at")[0]?.innerHTML))
+          console.log(expires_at)
           setSecret({
               secret_text,
               remaining_views,
@@ -97,7 +93,7 @@ export const useRetrieveSecrets = () => {
       }
     } catch (error) {
         console.error('Failed to submit secret', error)
-    }  finally {
+    } finally {
       setIsLoading(false) 
     }
   }
