@@ -27,22 +27,22 @@ const SecretTable: React.FC<SecretTableProps> = ({ secret }) => {
             >
                 <TableHead>
                     <TableRow>
-                        <TableCell sx={{fontWeight:'bold'}}>Attribute</TableCell>
-                        <TableCell sx={{fontWeight:'bold'}}>Value</TableCell>
+                        <TableCell sx={{fontWeight:'bold', color: '#434343'}}>Attribute</TableCell>
+                        <TableCell sx={{fontWeight:'bold', color: '#434343'}}>Value</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     <TableRow>
-                        <TableCell component="th" scope="row">
+                        <TableCell sx={{color: '#434343'}} component="th" scope="row">
                             Secret Text
                         </TableCell>
-                        <TableCell>{secret.secret_text}</TableCell>
+                        <TableCell sx={{color: '#434343'}}>{secret.secret_text}</TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell component="th" scope="row">
+                        <TableCell sx={{color: '#434343'}} component="th" scope="row">
                             Expires At
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{color: '#434343'}}>
                             {secret.expires_at && secret.secret_text
                                 ? secret.expires_at 
                                 : !secret.expires_at && !secret.secret_text ?
@@ -52,10 +52,10 @@ const SecretTable: React.FC<SecretTableProps> = ({ secret }) => {
                         </TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell component="th" scope="row">
+                        <TableCell sx={{color: '#434343'}} component="th" scope="row">
                             Remaining Views
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{color: '#434343'}}>
                             {secret.remaining_views && secret.secret_text
                                 ? secret.remaining_views 
                                 : !secret.remaining_views && !secret.secret_text ?

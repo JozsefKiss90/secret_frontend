@@ -19,6 +19,7 @@ const SecretFormRetrieve: React.FC<SecretFormPropsRetrieve> = ({ hash, warningMe
             onSubmit={handleSubmit}
         >
             <TextField
+                sx={{ backgroundColor: 'white', '.MuiInputBase-root': {color: 'black'} }}
                 label="Hash"
                 name="hash_promp"
                 value={hash}

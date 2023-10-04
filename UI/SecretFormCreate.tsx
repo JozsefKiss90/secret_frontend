@@ -21,6 +21,7 @@ const SecretFormCreate : React.FC<SecretFormPropsCreate> = ({ secret, warning, i
                 onSubmit={handleSubmit}
             >
                 <TextField
+                    sx={{ backgroundColor: 'white', '.MuiInputBase-root': {color: 'black'} }}
                     label="Secret"
                     name="secret_text"
                     value={secret.secret_text || ''}
@@ -28,6 +29,7 @@ const SecretFormCreate : React.FC<SecretFormPropsCreate> = ({ secret, warning, i
                     required
                     />
                 <TextField
+                    sx={{ backgroundColor: 'white', '.MuiInputBase-root': {color: '#434343'} }}
                     label="Expire After Views"
                     type="number"
                     name="expireAfterViews"
@@ -35,6 +37,7 @@ const SecretFormCreate : React.FC<SecretFormPropsCreate> = ({ secret, warning, i
                     onChange={handleInputChange}
                 />
                 <TextField
+                    sx={{ backgroundColor: 'white', '.MuiInputBase-root': {color: 'black'} }}
                     label="Expire After (minutes)"
                     type="number"
                     name="expireAfter"
