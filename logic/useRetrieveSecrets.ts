@@ -44,10 +44,9 @@ export const useRetrieveSecrets = () => {
    
     const url = process.env.NODE_ENV === "production" ? `${apiUrl}${hash}/` : `${localUrl}${hash}/`
     setIsLoading(true)
-    console.log('API URL:', process.env.NEXT_PUBLIC_API_URL);
 
     try { 
-      const response = await fetch(`${apiUrl}${hash}/`, {
+      const response = await fetch(url, {
           headers: {
               'Accept': isXmlResponse ? 'application/xml' : 'application/json', 
           },
