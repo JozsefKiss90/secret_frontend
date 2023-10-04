@@ -80,8 +80,7 @@ export const useRetrieveSecrets = () => {
           const secret_text = xmlDoc.getElementsByTagName("secret_text")[0]?.textContent || ''
           const expires_at = xmlDoc.getElementsByTagName("expires_at")[0]?.innerHTML || null
           const remaining_views = parseInt(xmlDoc.getElementsByTagName("remaining_views")[0]?.textContent || '0', 10)
-          console.log(parseInt(xmlDoc.getElementsByTagName("expires_at")[0]?.innerHTML))
-          console.log(expires_at)
+          
           setSecret({
               secret_text,
               remaining_views,
@@ -90,9 +89,11 @@ export const useRetrieveSecrets = () => {
           setWarningMessage('')
       } else {
           console.error('Unexpected content type', contentType)
+          setWarningMessage('Unexpected content type')
       }
     } catch (error) {
         console.error('Failed to submit secret', error)
+        setWarningMessage('Unexpected content type')
     } finally {
       setIsLoading(false) 
     }
