@@ -45,7 +45,7 @@ export const useRetrieveSecrets = () => {
     const url = process.env.NODE_ENV === "production" ? `${apiUrl}${hash}/` : `${localUrl}${hash}/`
     setIsLoading(true)
     try { 
-      const response = await fetch(url, {
+      const response = await fetch(`${apiUrl}${hash}/`, {
           headers: {
               'Accept': isXmlResponse ? 'application/xml' : 'application/json', 
           },

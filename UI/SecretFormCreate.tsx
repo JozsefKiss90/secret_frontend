@@ -29,7 +29,7 @@ const SecretFormCreate : React.FC<SecretFormPropsCreate> = ({ secret, warning, i
                     required
                     />
                 <TextField
-                    sx={{ backgroundColor: 'white', '.MuiInputBase-root': {color: '#434343'} }}
+                    sx={{ backgroundColor: 'white', '.MuiInputBase-root': {color: 'black'} }}
                     label="Expire After Views"
                     type="number"
                     name="expireAfterViews"
