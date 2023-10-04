@@ -30,4 +30,6 @@ export type GetSecret = {
     expires_at?: string
   } | undefined 
 
-  
+export type SecretTableProps = {
+    secret: GetSecret;
+};

@@ -1,15 +1,7 @@
 import React from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { SecretTableProps }  from '../types/types'
 
-type Secret = {
-    secret_text?: string;
-    remaining_views?: number;
-    expires_at?: number;
-} | undefined;
-
-type SecretTableProps = {
-    secret: Secret;
-};
 
 const SecretTable: React.FC<SecretTableProps> = ({ secret }) => {
     return (

@@ -20,7 +20,7 @@ export default function SecretRetrieve() {
         <div>
             <Navbar/> 
             <SecretFormRetrive 
-                hash={hash} 
+                hash={hash}  
                 warningMessage={warningMessage}
                 isXmlResponse={isXmlResponse} 
                 isLoading={isLoading}
